@@ -9,17 +9,13 @@ export default Ember.Controller.extend({
 	},
 
 
-
-
-
 	actions: {
 		testTwitter: function() {
-			console.log(this.get('twitter'));
 			this.get('twitter').authenticate();
 		},
 		initService: function() {
 			console.log('initS');
-			this.get('twitter').startInit();
+			//this.get('twitter').startInit();
 		}
 	}
 });

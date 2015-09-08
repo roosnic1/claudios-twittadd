@@ -19,17 +19,15 @@ export default Ember.Service.extend({
 	},
 
 	authenticate: function() {
-		OAuth.popup('twitter').done(function(twitter) {
-			this.set('userIsAuthenticated',true);
-			/*this.set('twitter',twitter);
-			console.log('It Worked');
-			console.log(twitter);*/
-		  //make API calls with `twitter`
+		var self = this;
+		OAuth.popup('twitter').done(function(result) {
+			self.set('userIsAuthenticated',true);
+			self.set('twitter',result);
+			console.log(result);
 		}).fail(function(err) {
-			this.set('userIsAuthenticated',false);
-			/*this.set('twitter',null);
-			console.log('It didnt Worked');*/
-		  //todo when the OAuth flow failed
+			self.set('userIsAuthenticated',false);
+			self.set('twitter',null);
+			console.log('It didnt Worked');
 		});
 	}
 });
