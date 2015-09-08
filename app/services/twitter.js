@@ -3,8 +3,9 @@ import Ember from 'ember';
 export default Ember.Service.extend({
 
 	userIsAuthenticated: false,
+	result: null,
 
-	twitter: null,
+	user: null,
 
 	init: function() {
 		this._super();
@@ -13,21 +14,20 @@ export default Ember.Service.extend({
 		console.log('OAuth is initialized');
 	},
 
-
-	startInit: function() {
-		console.log('Starting INIT');
-	},
-
 	authenticate: function() {
 		var self = this;
 		OAuth.popup('twitter').done(function(result) {
-			self.set('userIsAuthenticated',true);
-			self.set('twitter',result);
-			console.log(result);
+			self.set('result',result);
+			result.me().done(function(user) {
+				console.log(user);
+				self.set('user',user);
+				self.set('userIsAuthenticated',true);
+			});
 		}).fail(function(err) {
 			self.set('userIsAuthenticated',false);
-			self.set('twitter',null);
-			console.log('It didnt Worked');
+			self.set('result',null);
+			self.set('user',null);
+			console.log('Auth with twiter failed');
 		});
 	}
 });
