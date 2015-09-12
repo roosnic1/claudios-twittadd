@@ -1,16 +1,17 @@
 <div class="mdl-grid">
-{{#mdl-card title='Welcome to Ember.js'}}
-  <div class="mdl-card__supporting-text">
-    You have successfully installed <a href='https://github.com/truenorth/ember-material-lite' target='_blank'>ember-material-lite</a>. It's based on an awesome google project called <a href='https://github.com/google/material-design-lite' target='_blank'>Material Design Lite</a>
-  </div>
-  {{#mdl-card-actions}}
-    {{mdl-button text='Test Button' action='testTwitter'}}
-  {{/mdl-card-actions}}
-{{/mdl-card}}
+	<div class="mdl-cell mdl-cell--2-col"></div>
+	<h1 class="textcenter mdl-cell mdl-cell--8-col">Claudios Twittadd</h1>
+	<div class="mdl-cell mdl-cell--2-col"></div>
+
+	<!--<h2 class="mdl"-->
+	{{#if twitter.isAuthenticated}}
+		<h2 class="textcenter mdl-cell mdl-cell--4-col">Hi </h2>
+		{{mdl-button text="Logout" action="logout"}}
+		{{outlet}}
+	{{else}}
+		<div class="mdl-cell mdl-cell--12-col">
+			{{mdl-button text="Login with Twitter" action="authenticate"}}
+		</div>
+	{{/if}}
 </div>
 
-
-
-{{mdl-button text='Service Button' action='initService'}}
-
-{{outlet}}
