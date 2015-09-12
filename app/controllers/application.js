@@ -41,6 +41,19 @@ export default Ember.Controller.extend({
 		});
 	},
 
+	addProfile: function(profile) {
+		var self = this;
+		this.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + profile.id + '&follow=true').done(function(data) {
+			console.log(data);
+			profile.set('isAdded',true);
+			setTimeout(function() {
+				self.get('twittAccountInfos').removeObject(profile);
+			},1200);
+		}).fail(function(err) {
+			console.warn('Could not add friend',err);
+		});
+	},
+
 
 	actions: {
 		authenticate: function() {
@@ -52,32 +65,27 @@ export default Ember.Controller.extend({
 		},
 
 		checkAccounts: function() {
-			console.log(this.get('twittAccounts'));
 			var i = this.get('twittAccounts').replace(/(\r\n|\n|\r|,)/gm,"");
-
 			var accounts = i.split('@');
 			if(accounts.length > 0) {
 				accounts.shift();
-				console.log(accounts);
+				this.set('twittAccounts','');
 				this.getAccountInfos(accounts);
 			} else {
 				console.warn('Input Data not parsable');
 			}
 		},
 
+		addAllProfiles: function() {
+			var self = this;
+			this.get('twittAccountInfos').forEach(function(item) {
+				self.addProfile(item);
+			});
+		},
+
 		handleProfile: function(profile,add) {
 			if(add) {
-				var self = this;
-				console.log(profile,add);
-				this.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + profile.id + '&follow=true').done(function(data) {
-					console.log(data);
-					profile.set('isAdded',true);
-					setTimeout(function() {
-						self.get('twittAccountInfos').removeObject(profile);
-					},1200);
-				}).fail(function(err) {
-					console.warn('Could not add friend',err);
-				})
+				addProfile(profile);
 			} else {
 				this.get('twittAccountInfos').removeObject(profile);
 			}
