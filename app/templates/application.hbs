@@ -20,12 +20,17 @@
 		</div>
 		<div class="mdl-cell mdl-cell--2-col"></div>
 
+		{{#if hasTwittAccountInfos}}
+			<div class="mdl-cell mdl-cell--1-col"></div>
+			<h3 class="textcenter mdl-cell mdl-cell--10-col">Found {{twittAccountInfos.length}} Twitter Profiles</h3>
+			<div class="mdl-cell mdl-cell--1-col"></div>
+		{{/if}}
 		{{#each twittAccountInfos as |account| }}
-		<div class="mdl-cell mdl-cell--2-col"></div>
-		<div class="mdl-cell mdl-cell--8-col">
-			{{account.screen_name}}
-		</div>
-		<div class="mdl-cell mdl-cell--2-col"></div>
+			<div class="mdl-cell mdl-cell--1-col"></div>
+			<div class="mdl-cell mdl-cell--4-col twitter-profiles">
+				{{ twitter-profile profile=account action="handleProfile"}}
+			</div>
+			<div class="mdl-cell mdl-cell--1-col"></div>
 		{{/each}}
 
 

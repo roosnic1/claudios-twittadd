@@ -1,0 +1,15 @@
+{{#mdl-card title=profile.name}}
+	<div class="twitter-profile-name">
+		<div class="twitter-profile-image" style="background-image: url({{profile.profile_image_url_https}})"></div>
+		<div class="twitter-profile-handle">@{{profile.screen_name}}</div>
+	</div>
+	<div class="mdl-card__supporting-text">
+		{{profile.description}}
+	</div>
+	{{#mdl-card-actions}}
+	{{mdl-button text='Add' action='add'}}
+	{{/mdl-card-actions}}
+	{{#mdl-card-buttons}}
+	{{mdl-button icon='delete' action='delete'}}
+	{{/mdl-card-buttons}}
+{{/mdl-card}}

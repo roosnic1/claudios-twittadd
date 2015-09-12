@@ -7,9 +7,18 @@ export default Ember.Controller.extend({
 	twittAccounts: '',
 	twittAccountInfos: [],
 
+	hasTwittAccountInfos: function() {
+		if(this.get('twittAccountInfos.length') > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}.property('twittAccountInfos.@each'),
+
 	init: function() {
 		this._super();
 		console.log('Application Controller init');
+		this.get('twitter').authenticateFromCache();
 	},
 
 
@@ -54,13 +63,18 @@ export default Ember.Controller.extend({
 			}
 		},
 
-		initService: function() {
-			/*var id = this.get('twitter.user.id');
-			console.log('Getting friends of Id: ' + id);
-			this.get('twitter.result').get('https://api.twitter.com/1.1/friends/ids.json?cursor=-1&user_id='+id+'&count=5000').done(function(data) {
-				console.log(data);
-			});*/
-			console.log(this.get('twittaccounts'));
+		handleProfile: function(profile,add) {
+			if(add) {
+				console.log(profile,add);
+				this.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + profile.id + '&follow=true').done(function(data) {
+					console.log(data);
+				}).fail(function(err) {
+					console.warn('Could not add friend',err);
+				})
+			} else {
+				this.get('twittAccountInfos').removeObject(profile);
+			}
+
 		}
 	}
 });
