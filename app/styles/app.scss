@@ -14,6 +14,7 @@ $color-accent: $palette-pink-A200;
 	position: fixed;
 	right: 50px;
 	top: 20px;
+	z-index: 2;
 }
 
 .twitter-profiles .mdl-card {
@@ -35,4 +36,19 @@ $color-accent: $palette-pink-A200;
 .twitter-profile-handle {
 	margin-left: 20px;
 	line-height: 50px;
+}
+
+.twitter-profile-isAdded {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.twitter-profile-isAdded h2 {
+	text-align: center;
+    color: white;
+    margin-top: 60px;
 }

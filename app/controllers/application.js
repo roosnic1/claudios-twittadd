@@ -33,7 +33,9 @@ export default Ember.Controller.extend({
 		var self = this;
 		this.get('twitter.result').get('https://api.twitter.com/1.1/users/lookup.json?screen_name='+screenNames).done(function(data) {
 			console.log(data);
-			self.get('twittAccountInfos').pushObjects(data);
+			data.forEach(function(item) {
+				self.get('twittAccountInfos').pushObject(Ember.Object.create(item));
+			});
 		}).fail(function(err) {
 			console.warn('Could not get Data from Twitter',err);
 		});
@@ -65,9 +67,14 @@ export default Ember.Controller.extend({
 
 		handleProfile: function(profile,add) {
 			if(add) {
+				var self = this;
 				console.log(profile,add);
 				this.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + profile.id + '&follow=true').done(function(data) {
 					console.log(data);
+					profile.set('isAdded',true);
+					setTimeout(function() {
+						self.get('twittAccountInfos').removeObject(profile);
+					},1200);
 				}).fail(function(err) {
 					console.warn('Could not add friend',err);
 				})
