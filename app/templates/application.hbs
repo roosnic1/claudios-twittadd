@@ -5,8 +5,23 @@
 
 	<!--<h2 class="mdl"-->
 	{{#if twitter.isAuthenticated}}
-		<h2 class="textcenter mdl-cell mdl-cell--4-col">Hi </h2>
-		{{mdl-button text="Logout" action="logout"}}
+		<div class="mdl-cell mdl-cell--1-col"></div>
+		<h3 class="textcenter mdl-cell mdl-cell--10-col">Hey {{twitter.user.name}} which accounts do you want to follow?</h3>
+		<div class="mdl-cell mdl-cell--1-col"></div>
+
+		<div class="mdl-cell mdl-cell--2-col"></div>
+		<div class="mdl-cell mdl-cell--8-col">
+			{{mdl-textarea label="Twitter Accounts" value=twittAccounts class="txtarea-accounts"}}
+		</div>
+		<div class="mdl-cell mdl-cell--2-col"></div>
+		<div class="mdl-cell mdl-cell--2-col"></div>
+		<div class="mdl-cell mdl-cell--8-col">
+			{{mdl-button text="Do Magic" action="checkAccounts"}}
+		</div>
+		<div class="mdl-cell mdl-cell--2-col"></div>
+
+
+
 		{{outlet}}
 	{{else}}
 		<div class="mdl-cell mdl-cell--12-col">
@@ -15,3 +30,7 @@
 	{{/if}}
 </div>
 
+
+{{#if twitter.isAuthenticated}}
+	{{mdl-button isFloating=true icon="backspace" class="logout-button" action="logout"}}
+{{/if}}
