@@ -7,17 +7,18 @@ export default Ember.Controller.extend({
 	twittAccounts: '',
 	twittAccountInfos: [],
 
-	hasTwittAccountInfos: function() {
+	notificationMessage: '',
+
+	hasTwittAccountInfos: Ember.computed('twittAccountInfos.[]',function() {
 		if(this.get('twittAccountInfos.length') > 0) {
 			return true;
 		} else {
 			return false;
 		}
-	}.property('twittAccountInfos.@each'),
+	}),
 
 	init: function() {
 		this._super();
-		console.log('Application Controller init');
 		this.get('twitter').authenticateFromCache();
 	},
 
@@ -45,12 +46,16 @@ export default Ember.Controller.extend({
 		if(profiles.constructor !== Array) {
 			profiles = [profiles];
 		}
-
+		var length = profiles.length;
+		var orgLength = profiles.length;
 		var self = this;
 		profiles.forEach(function(item) {
 			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + '&follow=true').done(function(data) {
-				console.log(data);
 				item.set('isAdded',true);
+				length -= 1;
+				if(length === 0) {
+					self.set('notificationMessage','Added ' + orgLength + ' Profile(s)');
+				}
 				setTimeout(function() {
 					self.get('twittAccountInfos').removeObject(item);
 				},1200);
@@ -59,7 +64,6 @@ export default Ember.Controller.extend({
 			});
 		})
 	},
-
 
 	actions: {
 		authenticate: function() {
@@ -85,9 +89,6 @@ export default Ember.Controller.extend({
 		addAllProfiles: function() {
 			var self = this;
 			this.addProfiles(this.get('twittAccountInfos'));
-			/*this.get('twittAccountInfos').forEach(function(item) {
-				self.addProfile(item);
-			});*/
 		},
 
 		handleProfile: function(profile,add) {
@@ -97,6 +98,10 @@ export default Ember.Controller.extend({
 				this.get('twittAccountInfos').removeObject(profile);
 			}
 
+		},
+
+		dismissNotification: function() {
+			this.set('notificationMessage','');
 		}
 	}
 });

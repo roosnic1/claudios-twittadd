@@ -52,3 +52,27 @@ $color-accent: $palette-pink-A200;
     color: white;
     margin-top: 60px;
 }
+
+.notification-bar-wrapper {
+	width: 100%;
+	background-color: rgba(0,0,0,0.8);
+	position: fixed;
+    bottom: 0;
+    z-index: 1;
+}
+
+.notification-bar-wrapper .notification-message {
+	margin-left: 20px;
+	display: inline-block;
+	text-align: left;
+	width: 80%;
+	color: white;
+	line-height:50px;
+	font-size: 22px;
+}
+
+.notification-bar-wrapper button {
+	margin-top: 5px;
+	margin-right: 20px;
+	float: right;
+}

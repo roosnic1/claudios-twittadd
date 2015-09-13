@@ -51,3 +51,11 @@
 {{#if twitter.isAuthenticated}}
 	{{mdl-button isFloating=true icon="backspace" class="logout-button" action="logout"}}
 {{/if}}
+
+
+{{#if notificationMessage}}
+	<div class="notification-bar-wrapper">
+		<div class="notification-message">{{notificationMessage}}</div>
+		{{mdl-button isFloating=true icon='clear' isMiniFab=true action='dismissNotification'}}
+	</div>
+{{/if}}
