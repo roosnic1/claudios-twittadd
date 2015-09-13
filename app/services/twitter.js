@@ -19,7 +19,6 @@ export default Ember.Service.extend({
 		var twitter = OAuth.create('twitter');
 		if(twitter) {
 			this.set('result',twitter);
-			console.log(twitter);
 			twitter.me().done(function(user) {
 				self.set('user',user);
 				self.set('isAuthenticated',true);
@@ -32,7 +31,6 @@ export default Ember.Service.extend({
 		OAuth.popup('twitter',{cache: true}).done(function(result) {
 			self.set('result',result);
 			result.me().done(function(user) {
-				console.log(user);
 				self.set('user',user);
 				self.set('isAuthenticated',true);
 			});
