@@ -9,6 +9,16 @@ export default Ember.Controller.extend({
 
 	notificationMessage: '',
 
+	onNotificationMessageChange: function() {
+		var self = this;
+		var oldMsg = this.get('notificationMessage');
+		setTimeout(function() {
+			if(self.get('notificationMessage') === oldMsg) {
+				self.set('notificationMessage','');
+			}
+		},5000);
+	}.observes('notificationMessage'),
+
 	hasTwittAccountInfos: Ember.computed('twittAccountInfos.[]',function() {
 		if(this.get('twittAccountInfos.length') > 0) {
 			return true;
@@ -55,7 +65,7 @@ export default Ember.Controller.extend({
 		var orgLength = profiles.length;
 		var self = this;
 		profiles.forEach(function(item) {
-			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + 'as&follow=true').done(function(data) {
+			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + '&follow=true').done(function(data) {
 				item.set('isAdded',true);
 				length -= 1;
 				if(length === 0) {
@@ -86,6 +96,9 @@ export default Ember.Controller.extend({
 
 		checkAccounts: function() {
 			var i = this.get('twittAccounts').replace(/(\r\n|\n|\r|,)/gm,"");
+			if(i <= 0) {
+				return;
+			}
 			var accounts = i.split('@');
 			if(accounts.length > 0) {
 				accounts.shift();
