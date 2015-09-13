@@ -41,17 +41,23 @@ export default Ember.Controller.extend({
 		});
 	},
 
-	addProfile: function(profile) {
+	addProfiles: function(profiles) {
+		if(profiles.constructor !== Array) {
+			profiles = [profiles];
+		}
+
 		var self = this;
-		this.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + profile.id + '&follow=true').done(function(data) {
-			console.log(data);
-			profile.set('isAdded',true);
-			setTimeout(function() {
-				self.get('twittAccountInfos').removeObject(profile);
-			},1200);
-		}).fail(function(err) {
-			console.warn('Could not add friend',err);
-		});
+		profiles.forEach(function(item) {
+			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + '&follow=true').done(function(data) {
+				console.log(data);
+				item.set('isAdded',true);
+				setTimeout(function() {
+					self.get('twittAccountInfos').removeObject(item);
+				},1200);
+			}).fail(function(err) {
+				console.warn('Could not add friend',err);
+			});
+		})
 	},
 
 
@@ -78,14 +84,15 @@ export default Ember.Controller.extend({
 
 		addAllProfiles: function() {
 			var self = this;
-			this.get('twittAccountInfos').forEach(function(item) {
+			this.addProfiles(this.get('twittAccountInfos'));
+			/*this.get('twittAccountInfos').forEach(function(item) {
 				self.addProfile(item);
-			});
+			});*/
 		},
 
 		handleProfile: function(profile,add) {
 			if(add) {
-				addProfile(profile);
+				this.addProfiles(profile);
 			} else {
 				this.get('twittAccountInfos').removeObject(profile);
 			}
