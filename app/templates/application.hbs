@@ -1,7 +1,11 @@
 <div class="mdl-grid">
 	<div class="mdl-cell mdl-cell--2-col"></div>
 	<h1 class="textcenter mdl-cell mdl-cell--8-col">Claudios Twittadd</h1>
-	<div class="mdl-cell mdl-cell--2-col"></div>
+	<div class="mdl-cell mdl-cell--2-col">
+		{{#if twitter.isAuthenticated}}
+			{{mdl-button isFloating=true icon="backspace" class="logout-button" action="logout"}}
+		{{/if}}
+	</div>
 
 	<!--<h2 class="mdl"-->
 	{{#if twitter.isAuthenticated}}
@@ -48,9 +52,7 @@
 </div>
 
 
-{{#if twitter.isAuthenticated}}
-	{{mdl-button isFloating=true icon="backspace" class="logout-button" action="logout"}}
-{{/if}}
+
 
 
 {{#if notificationMessage}}
