@@ -39,7 +39,12 @@ export default Ember.Controller.extend({
 			});
 		}).fail(function(err) {
 			console.warn('Could not get Data from Twitter',err);
-		});
+			var errorMessage = 'Error while getting Users.';
+			if(err.responseJSON.errors.length > 0) {
+				errorMessage += ' Message: ' + err.responseJSON.errors[0].message;
+			}
+			self.set('notificationMessage',errorMessage);
+	});
 	},
 
 	addProfiles: function(profiles) {
@@ -50,7 +55,7 @@ export default Ember.Controller.extend({
 		var orgLength = profiles.length;
 		var self = this;
 		profiles.forEach(function(item) {
-			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + '&follow=true').done(function(data) {
+			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + 'as&follow=true').done(function(data) {
 				item.set('isAdded',true);
 				length -= 1;
 				if(length === 0) {
@@ -61,6 +66,11 @@ export default Ember.Controller.extend({
 				},1200);
 			}).fail(function(err) {
 				console.warn('Could not add friend',err);
+				var errorMessage = 'Error while adding User.';
+				if(err.responseJSON.errors.length > 0) {
+					errorMessage += ' Message: ' + err.responseJSON.errors[0].message;
+				}
+				self.set('notificationMessage',errorMessage);
 			});
 		})
 	},

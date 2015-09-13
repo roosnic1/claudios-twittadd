@@ -7,6 +7,8 @@ export default Ember.Service.extend({
 
 	user: null,
 
+	error: null,
+
 	init: function() {
 		this._super();
 		this.set('isAuthenticated',false);
@@ -38,6 +40,7 @@ export default Ember.Service.extend({
 			self.set('isAuthenticated',false);
 			self.set('result',null);
 			self.set('user',null);
+			self.set('error',err);
 			console.log('Auth with twiter failed');
 		});
 	},

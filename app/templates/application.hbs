@@ -7,11 +7,8 @@
 		{{/if}}
 	</div>
 
-	<!--<h2 class="mdl"-->
 	{{#if twitter.isAuthenticated}}
-		<div class="mdl-cell mdl-cell--1-col"></div>
-		<h3 class="textcenter mdl-cell mdl-cell--10-col">Hey {{twitter.user.name}} which accounts do you want to follow?</h3>
-		<div class="mdl-cell mdl-cell--1-col"></div>
+		<h3 class="textcenter mdl-cell mdl-cell--12-col">Hey {{twitter.user.name}} which accounts do you want to follow?</h3>
 
 		<div class="mdl-cell mdl-cell--2-col"></div>
 		<div class="mdl-cell mdl-cell--8-col">
@@ -25,19 +22,13 @@
 		<div class="mdl-cell mdl-cell--2-col"></div>
 
 		{{#if hasTwittAccountInfos}}
-			<div class="mdl-cell mdl-cell--1-col"></div>
-			<h3 class="textcenter mdl-cell mdl-cell--10-col">{{twittAccountInfos.length}} Profiles</h3>
-			<div class="mdl-cell mdl-cell--1-col"></div>
-			<div class="mdl-cell mdl-cell--1-col"></div>
-			<div class="textcenter mdl-cell mdl-cell--10-col">{{mdl-button text="Add all" action="addAllProfiles"}}</div>
-			<div class="mdl-cell mdl-cell--1-col"></div>
+			<h3 class="textcenter mdl-cell mdl-cell--12-col">{{twittAccountInfos.length}} Profiles</h3>
+			<div class="textcenter mdl-cell mdl-cell--12-col">{{mdl-button text="Add all" action="addAllProfiles"}}</div>
 		{{/if}}
 		{{#each twittAccountInfos as |account| }}
-			<div class="mdl-cell mdl-cell--1-col"></div>
-			<div class="mdl-cell mdl-cell--4-col twitter-profiles">
+			<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone twitter-profiles">
 				{{ twitter-profile profile=account action="handleProfile"}}
 			</div>
-			<div class="mdl-cell mdl-cell--1-col"></div>
 		{{/each}}
 
 
