@@ -19,6 +19,13 @@ export default Ember.Controller.extend({
 		},5000);
 	}.observes('notificationMessage'),
 
+	hasTwitterError: function() {
+		var error = this.get('twitter.error');
+		if(error.length > 0) {
+			this.set('notificationMessage',error);
+		}
+	}.observes('twitter.error'),
+
 	hasTwittAccountInfos: Ember.computed('twittAccountInfos.[]',function() {
 		if(this.get('twittAccountInfos.length') > 0) {
 			return true;
