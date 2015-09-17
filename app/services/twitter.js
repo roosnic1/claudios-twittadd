@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from 'claudios-twittadd/config/environment';
 
 export default Ember.Service.extend({
 
@@ -13,7 +14,7 @@ export default Ember.Service.extend({
 		this._super();
 		this.set('isAuthenticated',false);
 		this.set('error','');
-		OAuth.initialize('fvf8IDzcTXgJgb5S3hNzKMchYvY');
+		OAuth.initialize(ENV.oauthPubKey);
 		console.log('OAuth is initialized');
 	},
 
@@ -44,6 +45,7 @@ export default Ember.Service.extend({
 			self.set('result',null);
 			self.set('user',null);
 			self.set('error','Authentication with twitter failed');
+			console.log('Authentication with twitter failed',err);
 		});
 	},
 
