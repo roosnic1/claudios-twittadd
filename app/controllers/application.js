@@ -72,7 +72,7 @@ export default Ember.Controller.extend({
 		var orgLength = profiles.length;
 		var self = this;
 		profiles.forEach(function(item) {
-			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + '&follow=true').done(function(data) {
+			self.get('twitter.result').post('https://api.twitter.com/1.1/friendships/create.json?user_id=' + item.id + '&follow=true').done(function() {
 				item.set('isAdded',true);
 				length -= 1;
 				if(length === 0) {
@@ -89,7 +89,7 @@ export default Ember.Controller.extend({
 				}
 				self.set('notificationMessage',errorMessage);
 			});
-		})
+		});
 	},
 
 	actions: {
@@ -117,7 +117,6 @@ export default Ember.Controller.extend({
 		},
 
 		addAllProfiles: function() {
-			var self = this;
 			this.addProfiles(this.get('twittAccountInfos'));
 		},
 
