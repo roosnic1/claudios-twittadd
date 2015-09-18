@@ -4,9 +4,6 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
-    dotEnv: {
-      clientAllowedKeys: ['OAUTH_PUBKEY']
-    }
   });
 
   app.import('bower_components/oauth-js/dist/oauth.js');
