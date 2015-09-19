@@ -4,6 +4,9 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
+    sassOptions: {
+      includePaths: ['bower_components/material-design-lite/src']
+    }
   });
 
   app.import('bower_components/oauth-js/dist/oauth.js');
