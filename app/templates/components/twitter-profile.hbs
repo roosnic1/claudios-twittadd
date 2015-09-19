@@ -13,6 +13,7 @@
 	<div class="mdl-card__supporting-text">
 		{{profile.description}}
 	</div>
+	{{ yield }}
 	{{#mdl-card-actions}}
 	{{mdl-button text='Add' action='add'}}
 	{{/mdl-card-actions}}
