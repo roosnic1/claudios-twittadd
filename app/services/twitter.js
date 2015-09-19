@@ -15,7 +15,6 @@ export default Ember.Service.extend({
 		this.set('isAuthenticated',false);
 		this.set('error','');
 		OAuth.initialize(ENV.oauthPubKey);
-		console.log('OAuth is initialized');
 	},
 
 	authenticateFromCache: function() {
