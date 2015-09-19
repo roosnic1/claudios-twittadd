@@ -36,7 +36,10 @@ export default Ember.Controller.extend({
 
 	init: function() {
 		this._super();
-		this.get('twitter').authenticateFromCache();
+		var twitter = this.get('twitter');
+		if(twitter) {
+			twitter.authenticateFromCache();
+		}
 	},
 
 
