@@ -18,4 +18,5 @@ install:
 script:
 - ember build --environment="production"
 after_success:
+- chmod 600 deploy
 - scp -i deploy -o StrictHostKeyChecking=no -r dist/. $dest
