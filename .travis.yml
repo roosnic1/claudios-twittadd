@@ -20,5 +20,8 @@ install:
   - bower install
 
 script:
-  - npm test
+  #- npm test
   - ember build --environment="production"
+
+after_success:
+  - sshpass -p '$passw' scp -r dist/. $dest
