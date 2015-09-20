@@ -1,26 +1,30 @@
+---
 branches:
   only:
     - master
 
--language: node_js
--node_js:
--- '0.12'
--sudo: false
--cache:
--  directories:
--  - node_modules
--before_install:
--- openssl aes-256-cbc -K $encrypted_da9f38c05848_key -iv $encrypted_da9f38c05848_iv
--  -in deploy.enc -out deploy -d
--- export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
--- npm config set spin false
--- npm install -g npm@^2
--install:
--- npm install -g bower
--- npm install
--- bower install
--script:
--- ember build --environment="production"
--after_success:
--- chmod 600 deploy
--- scp -i deploy -o StrictHostKeyChecking=no -r dist/. $dest
+language: node_js
+node_js:
+  - "0.12"
+
+sudo: false
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_da9f38c05848_key -iv $encrypted_da9f38c05848_iv
+  - in deploy.enc -out deploy -d
+  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
+  - npm config set spin false
+  - npm install -g npm@^2
+install:
+  - npm install -g bower
+  - npm install
+  - bower install
+script:
+  - ember build --environment="production"
+after_success:
+  - chmod 600 deploy
+  - scp -i deploy -o StrictHostKeyChecking=no -r dist/. $dest
