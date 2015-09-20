@@ -3,7 +3,8 @@
     "document",
     "window",
     "-Promise",
-    "OAuth"
+    "OAuth",
+    "ga"
   ],
   "browser": true,
   "boss": true,
