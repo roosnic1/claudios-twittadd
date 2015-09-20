@@ -1,3 +1,6 @@
+branches:
+  only:
+    - master
 language: node_js
 node_js:
 - '0.12'
@@ -18,4 +21,5 @@ install:
 script:
 - ember build --environment="production"
 after_success:
-- scp -i deploy -r dist/. $dest
+- chmod 600 deploy
+- scp -i deploy -o StrictHostKeyChecking=no -r dist/. $dest
