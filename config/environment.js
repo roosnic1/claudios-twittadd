@@ -19,10 +19,10 @@ module.exports = function(environment) {
     },
     contentSecurityPolicy: {
       'default-src': "'none'",
-      'script-src': "'self'", // Allow scripts from https://cdn.mxpnl.com
+      'script-src': "'self' 'unsafe-inline' https://www.google-analytics.com", // Allow scripts from https://cdn.mxpnl.com
       'font-src': "'self' http://fonts.gstatic.com", // Allow fonts to be loaded from http://fonts.gstatic.com
       'connect-src': "'self' https://oauth.io", // Allow data (ajax/websocket) from api.mixpanel.com and custom-api.local
-      'img-src': "'self' https://pbs.twimg.com",
+      'img-src': "'self' https://pbs.twimg.com https://www.google-analytics.com",
       'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
       'media-src': "'self'"
     }
@@ -34,6 +34,9 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.googleAnalytics = {
+      webPropertyId: 'UA-67836092-2'
+    };
   }
 
   if (environment === 'test') {
@@ -49,7 +52,9 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.googleAnalytics = {
+      webPropertyId: 'UA-67836092-1'
+    };
   }
 
   return ENV;
